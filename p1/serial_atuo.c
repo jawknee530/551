@@ -12,13 +12,12 @@ long double Compute_error(long double approx);
 long double Find_area(long double a, long double b, long double n);
 
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
-long double true_value = 4003.7209001513268265;
 long double absolute_relative_error;
 
 int main( int argc, char *argv[] ) {
   long double a=100;
   long double b=600;
-  int start_n=100;
+  int start_n=10;
   int n;
   long double accepting_error = 0.5*pow(10, -14);
   int best_n;
@@ -30,8 +29,8 @@ int main( int argc, char *argv[] ) {
   //start the timer after getting input
   clock_t start = clock(), diff;
 
-  for(int i = 1; i<100; i++) {
-    n = 10400000 + start_n*i;
+  for(int i = 1; i<1000; i++) {
+    n = 10395000 + start_n*i;
     result = Find_area(a, b, n);
     if(absolute_relative_error < accepting_error && 
        absolute_relative_error < best_err) {
@@ -107,6 +106,7 @@ long double Get_y(long double x){
 }
 
 long double Compute_error(long double approx) {
+  long double true_value = 4003.7209001513268265;
   long double true_error = true_value - approx;
   return fabs(true_error/true_value);
 }
