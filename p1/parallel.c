@@ -38,7 +38,7 @@ int main( int argc, char *argv[] ) {
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
     printf("Enter a, b, and n\n");
-    scanf("%f %f %f", a, b, n);
+    scanf("%f %f %f", &a, &b, &n);
     printf("--------------------------------------------------------------\n");
     printf("[----------]\n");
     for(int i = 1; i < comm_sz; i++) {
