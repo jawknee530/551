@@ -55,7 +55,7 @@ int main( int argc, char *argv[] ) {
   //start timer
   clock_t start = clock(), diff;
 
-  //h is global for all processes
+  //h is global for all processes.
   h = (b - a)/n;
   //set up local variables for each process
   local_n = n/comm_sz;
