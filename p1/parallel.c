@@ -52,8 +52,8 @@ int main( int argc, char *argv[] ) {
     MPI_Recv(n, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
   }
 
-  long double relative_true_error = Compute_error(result);
-
+  //start timer
+  clock_t start = clock(), diff;
   //end time
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
