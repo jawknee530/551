@@ -82,7 +82,7 @@ int main( int argc, char *argv[] ) {
     printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
          (msec/1000)/60, (msec/1000)%60, msec%1000);
 
-    if(relative_true_error < accepting_error) {
+    if(absolute_relative_error < accepting_error) {
       printf("Realtive True Error is less than the Accepting Error! Success!\n");
       printf("--------------------------------------------------------------\n");
     }
