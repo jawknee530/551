@@ -73,6 +73,7 @@ int main( int argc, char *argv[] ) {
     for (int i = 1; i < comm_sz; i++) {
       MPI_Recv(&local_sum, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD,
           MPI_STATUS_IGNORE);
+      total_sum += local_sum;
     }
   }
   //end time
@@ -81,19 +82,23 @@ int main( int argc, char *argv[] ) {
 
   //printf("[==========]\n\n");
 
-  //printf("Numbers must match to this point--V\n");
-  //printf("True_Value is ----[ %se+03\n", t_val);
-  //printf("Current Guess is -[ %.20Le\n\n", result);
+  if (my_rank == 0) {
+    printf("Numbers must match to this point--V\n");
+    printf("True_Value is ----[ %se+03\n", t_val);
+    printf("Current Guess is -[ %.20Le\n\n", total_sum);
   //printf("Accepting Error -------[ %.15Le\n", accepting_error);
   //printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
-  //printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
+    printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
   //       (msec/1000)/60, (msec/1000)%60, msec%1000);
 
   //if(relative_true_error < accepting_error) {
   //  printf("Realtive True Error is less than the Accepting Error! Success!\n");
   //  printf("--------------------------------------------------------------\n");
   //}
+  }
 
+  //gotta clean up :)
+  MPI_Finalize();
   return 0;
 }
 
