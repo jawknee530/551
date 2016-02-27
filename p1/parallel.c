@@ -18,7 +18,7 @@ long double absolute_relative_error;
 
 int main( int argc, char *argv[] ) {
   int my_rank, comm_sz;
-  double local_n, local_a, loacal_b;
+  double local_n, local_a, local_b;
   double a, b, n, h;
   double local_sum, total_sum;
   char t_val[23] = {'4', '.', '0', '0', '3', '7', '2', '0', 
@@ -74,6 +74,7 @@ int main( int argc, char *argv[] ) {
       MPI_Recv(&local_sum, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD,
           MPI_STATUS_IGNORE);
     }
+  }
   //end time
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
