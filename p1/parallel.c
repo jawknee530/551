@@ -55,8 +55,12 @@ int main( int argc, char *argv[] ) {
   //start timer
   clock_t start = clock(), diff;
 
+  //h is global for all processes
   h = (b - a)/n;
+  //set up local variables for each process
   local_n = n/comm_sz;
+  local_a = a + my_rank*local_n*h;
+  local_b = local_a + local_n*h;
 
   local_sum = Find_area(local_a, local_b, local_n, h);
   //end time
