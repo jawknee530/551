@@ -18,7 +18,7 @@ long double absolute_relative_error;
 int main( int argc, char *argv[] ) {
   long double a=100;
   long double b=600;
-  long double start_n=10000;
+  long double start_n=5000;
   long double n;
   long double accepting_error = 0.5*pow(10, -14);
   long double best_n;
@@ -30,8 +30,8 @@ int main( int argc, char *argv[] ) {
   //start the timer after getting input
   clock_t start = clock(), diff;
 
-  for(int i = 1; i<1200; i++) {
-    n = start_n*i;
+  for(int i = 1; i<1400; i++) {
+    n = 5000000 + start_n*i;
     result = Find_area(a, b, n);
     if(absolute_relative_error < accepting_error
         && absolute_relative_error < best_err) {
@@ -54,7 +54,7 @@ int main( int argc, char *argv[] ) {
          "With N value of : %.15Lf\n", result, best_n, best_err);
   printf("--------------------------------------------------------------\n");
   printf("Lowest Error is   : %.15Le\n"
-         "With N value of   : %.15Lf\n", lowest_n, lowest_err); "
+         "With N value of   : %.15Lf\n", lowest_n, lowest_err);
          printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
                 (msec/1000)/60, (msec/1000)%60, msec%1000);
   printf("--------------------------------------------------------------\n");
