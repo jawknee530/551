@@ -10,7 +10,7 @@ int Update_progress(long double n, long double i, int eq_count);
 
 long double Compute_error(long double approx);
 
-long double Find_area(long double a, long double b, long double n, double h);
+long double Find_area(long double a, long double b, long double n, long double h);
 
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
 long double true_value = 4003.7209001513268265;
@@ -18,9 +18,9 @@ long double absolute_relative_error;
 
 int main( int argc, char *argv[] ) {
   int my_rank, comm_sz;
-  double local_n, local_a, local_b;
-  double a, b, n, h;
-  double local_sum, total_sum;
+  long double local_n, local_a, local_b;
+  long double a, b, n, h;
+  long double local_sum, total_sum;
   char t_val[23] = {'4', '.', '0', '0', '3', '7', '2', '0', 
                     '9', '0', '0', '1', '5', '1', '3', '2', 
                     '6', '8', '2', '6', '5', '9', '\0'};
@@ -42,18 +42,12 @@ int main( int argc, char *argv[] ) {
     n = 11000000;
     //printf("Enter a, b, and n\n");
     //scanf("%f %f %f", &a, &b, &n);
+  }
     printf("--------------------------------------------------------------\n");
     printf("[----------]\n");
-    for(int i = 1; i < comm_sz; i++) {
-      MPI_Send(&a, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
-      MPI_Send(&b, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
-      MPI_Send(&n, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD);
-    }
-  } else {
-    MPI_Recv(&a, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(&b, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(&n, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  }
+    MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, i, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, i, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&n, 1, MPI_LONG_DOUBLE, i, 0, MPI_COMM_WORLD);
 
   //start timer
   clock_t start = clock(), diff;
@@ -69,16 +63,9 @@ int main( int argc, char *argv[] ) {
   local_sum = Find_area(local_a, local_b, local_n, h);
 
   //add up all of the local sums
-  if (my_rank != 0) {
-    MPI_SEND(&local_sum, 1, MPI_DOUBLE, 0 , 0, MPI_COMM_WORLD);
-  } else {
-    total_sum = local_sum; //if i'm proc 0 then i start the count
-    for (int i = 1; i < comm_sz; i++) {
-      MPI_Recv(&local_sum, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD,
-          MPI_STATUS_IGNORE);
-      total_sum += local_sum;
-    }
-  }
+  MPI_Reduce(&local_sum, &total_sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0,
+      MPI_COMM_WORLD);
+
   //end time
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
@@ -105,7 +92,7 @@ int main( int argc, char *argv[] ) {
   return 0;
 }
 
-long double Find_area(long double a, long double b, long double n, double h) {
+long double Find_area(long double a, long double b, long double n, long double h) {
   //h is the width of each slice
   //Compute the y value at points a and b then halve them because
   //those two slices are only used once each
