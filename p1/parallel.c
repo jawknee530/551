@@ -39,7 +39,7 @@ int main( int argc, char *argv[] ) {
     printf("--------------------------------------------------------------\n");
     a = 100;
     b = 600;
-    n = 110000000;
+    n = 10000000000;
     //printf("Enter a, b, and n\n");
     //scanf("%f %f %f", &a, &b, &n);
   }
@@ -98,11 +98,13 @@ long double Find_area(long double a, long double b, long double n, long double h
   //Compute the y value at points a and b then halve them because
   //those two slices are only used once each
   long double y = Get_y(a)/2 + Get_y(b)/2;
-  //int eq_count = 0;
+  int eq_count = 0;
 
   //Loop that adds up all of the n slices of the function
   for (long double i = 1; i <= n-1; i++) {
-    //eq_count = Update_progress(n, i, eq_count);
+    if(my_rank==0) {
+      eq_count = Update_progress(n, i, eq_count);
+    }
     y += Get_y(a+i*h);
   }
 
