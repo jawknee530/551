@@ -62,7 +62,18 @@ int main( int argc, char *argv[] ) {
   local_a = a + my_rank*local_n*h;
   local_b = local_a + local_n*h;
 
+  //get the sum for this process
   local_sum = Find_area(local_a, local_b, local_n, h);
+
+  //add up all of the local sums
+  if (my_rank != 0) {
+    MPI_SEND(&local_int, 1, MPI_DOUBLE, 0 , 0, MPI_COMM_WORD);
+  } else {
+    total_int = local_int; //if i'm proc 0 then i start the count
+    for (int i = 1; i < comm_sz; i++) {
+      MPI_Recv(&local_int, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD,
+          MPI_STATUS_IGNORE);
+    }
   //end time
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
