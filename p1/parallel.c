@@ -13,14 +13,13 @@ long double Compute_error(long double approx);
 long double Find_area(long double a, long double b, long double n, long double h);
 
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
-long double true_value = 4003.7209001513268265;
-long double absolute_relative_error;
 
 int main( int argc, char *argv[] ) {
   int my_rank, comm_sz;
   long double local_n, local_a, local_b;
   long double a, b, n, h;
   long double local_sum, total_sum;
+  long double absolute_relative_error;
   char t_val[23] = {'4', '.', '0', '0', '3', '7', '2', '0', 
                     '9', '0', '0', '1', '5', '1', '3', '2', 
                     '6', '8', '2', '6', '5', '9', '\0'};
@@ -37,14 +36,13 @@ int main( int argc, char *argv[] ) {
 
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
+    printf("--------------------------------------------------------------\n");
     a = 100;
     b = 600;
     n = 11000000;
     //printf("Enter a, b, and n\n");
     //scanf("%f %f %f", &a, &b, &n);
   }
-    printf("--------------------------------------------------------------\n");
-    printf("[----------]\n");
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&n, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
@@ -65,6 +63,9 @@ int main( int argc, char *argv[] ) {
   //add up all of the local sums
   MPI_Reduce(&local_sum, &total_sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0,
       MPI_COMM_WORLD);
+  
+  //get absolute relative true error
+  absolute_relative_error = (Compute_error(total_sum));
 
   //end time
   diff = clock() - start;
@@ -76,15 +77,15 @@ int main( int argc, char *argv[] ) {
     printf("Numbers must match to this point--V\n");
     printf("True_Value is ----[ %se+03\n", t_val);
     printf("Current Guess is -[ %.20Le\n\n", total_sum);
-  //printf("Accepting Error -------[ %.15Le\n", accepting_error);
-  //printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
+    printf("Accepting Error -------[ %.15Le\n", accepting_error);
+    printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
     printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
          (msec/1000)/60, (msec/1000)%60, msec%1000);
 
-  //if(relative_true_error < accepting_error) {
-  //  printf("Realtive True Error is less than the Accepting Error! Success!\n");
-  //  printf("--------------------------------------------------------------\n");
-  //}
+    if(relative_true_error < accepting_error) {
+      printf("Realtive True Error is less than the Accepting Error! Success!\n");
+      printf("--------------------------------------------------------------\n");
+    }
   }
 
   //gotta clean up :)
@@ -117,6 +118,7 @@ long double Get_y(long double x){
 }
 
 long double Compute_error(long double approx) {
+  long double true_value = 4003.7209001513268265;
   long double true_error = true_value - approx;
   return fabs(true_error/true_value);
 }
