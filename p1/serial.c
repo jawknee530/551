@@ -64,8 +64,8 @@ int main( int argc, char *argv[] ) {
   printf("Numbers must match to this point--V\n");
   printf("True_Value is ----[ %se+03\n", t_val);
   printf("Current Guess is -[ %.20Le\n\n", result);
-  printf("Accepting Error is -----[ %.15Le\n", accepting_error);
-  printf("Relative True Error is -[ %.15Le\n\n", relative_true_error);
+  printf("Accepting Error -------[ %.15Le\n", accepting_error);
+  printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
   printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
          (msec/1000)/60, (msec/1000)%60, msec%1000);
 
