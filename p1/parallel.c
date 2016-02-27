@@ -58,20 +58,20 @@ int main( int argc, char *argv[] ) {
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
 
-  printf("[==========]\n\n");
+  //printf("[==========]\n\n");
 
-  printf("Numbers must match to this point--V\n");
-  printf("True_Value is ----[ %se+03\n", t_val);
-  printf("Current Guess is -[ %.20Le\n\n", result);
-  printf("Accepting Error -------[ %.15Le\n", accepting_error);
-  printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
-  printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
-         (msec/1000)/60, (msec/1000)%60, msec%1000);
+  //printf("Numbers must match to this point--V\n");
+  //printf("True_Value is ----[ %se+03\n", t_val);
+  //printf("Current Guess is -[ %.20Le\n\n", result);
+  //printf("Accepting Error -------[ %.15Le\n", accepting_error);
+  //printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
+  //printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
+  //       (msec/1000)/60, (msec/1000)%60, msec%1000);
 
-  if(relative_true_error < accepting_error) {
-    printf("Realtive True Error is less than the Accepting Error! Success!\n");
-    printf("--------------------------------------------------------------\n");
-  }
+  //if(relative_true_error < accepting_error) {
+  //  printf("Realtive True Error is less than the Accepting Error! Success!\n");
+  //  printf("--------------------------------------------------------------\n");
+  //}
 
   return 0;
 }
