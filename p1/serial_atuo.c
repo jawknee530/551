@@ -18,11 +18,11 @@ long double absolute_relative_error;
 int main( int argc, char *argv[] ) {
   long double a=100;
   long double b=600;
-  long double start_n=5000;
-  long double n;
+  int start_n=100;
+  int n;
   long double accepting_error = 0.5*pow(10, -14);
-  long double best_n;
-  long double lowest_n = 100000000;
+  int best_n;
+  int lowest_n = 1;
   long double best_err = 1;
   long double lowest_err = 1;
   long double result;
@@ -30,16 +30,16 @@ int main( int argc, char *argv[] ) {
   //start the timer after getting input
   clock_t start = clock(), diff;
 
-  for(int i = 1; i<1400; i++) {
-    n = 5000000 + start_n*i;
+  for(int i = 1; i<100; i++) {
+    n = 10400000 + start_n*i;
     result = Find_area(a, b, n);
-    if(absolute_relative_error < accepting_error
-        && absolute_relative_error < best_err) {
-      best_n = n;
-      best_err = absolute_relative_error;
-      if(best_n < lowest_n) {
-        lowest_n = best_n;
-        lowest_err = best_err;
+    if(absolute_relative_error < accepting_error && 
+       absolute_relative_error < best_err) {
+          best_n = n;
+          best_err = absolute_relative_error;
+          if(lowest_n == 1) {
+            lowest_n = n;
+            lowest_err = best_err;
       }
     }
   }
@@ -48,16 +48,16 @@ int main( int argc, char *argv[] ) {
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
 
-  printf("--------------------------------------------------------------\n");
+  printf("[--------------------------------------------------------------]\n");
   printf("The Result is   : %.15Le\n"
          "Best Error is   : %.15Le\n"
-         "With N value of : %.15Lf\n", result, best_n, best_err);
-  printf("--------------------------------------------------------------\n");
+         "With N value of : %d\n", result, best_err, best_n);
+  printf(">------------------------------------------------------------<\n");
   printf("Lowest Error is   : %.15Le\n"
-         "With N value of   : %.15Lf\n", lowest_n, lowest_err);
+         "With N value of   : %d\n", lowest_err, lowest_n);
          printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
                 (msec/1000)/60, (msec/1000)%60, msec%1000);
-  printf("--------------------------------------------------------------\n");
+  printf("[--------------------------------------------------------------]\n");
   //printf("[----------]\n");
 
 
