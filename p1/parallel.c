@@ -10,7 +10,7 @@ int Update_progress(long double n, long double i, int eq_count);
 
 long double Compute_error(long double approx);
 
-long double Find_area(long double a, long double b, long double n);
+long double Find_area(long double a, long double b, long double n, double h);
 
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
 long double true_value = 4003.7209001513268265;
