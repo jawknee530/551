@@ -67,11 +67,11 @@ int main( int argc, char *argv[] ) {
 
   //add up all of the local sums
   if (my_rank != 0) {
-    MPI_SEND(&local_int, 1, MPI_DOUBLE, 0 , 0, MPI_COMM_WORD);
+    MPI_SEND(&local_sum, 1, MPI_DOUBLE, 0 , 0, MPI_COMM_WORLD);
   } else {
-    total_int = local_int; //if i'm proc 0 then i start the count
+    total_sum = local_sum; //if i'm proc 0 then i start the count
     for (int i = 1; i < comm_sz; i++) {
-      MPI_Recv(&local_int, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD,
+      MPI_Recv(&local_sum, 1, MPI_DOUBLE, i, 0, MPI_COMM_WORLD,
           MPI_STATUS_IGNORE);
     }
   //end time
