@@ -46,8 +46,8 @@ int main( int argc, char *argv[] ) {
     printf("--------------------------------------------------------------\n");
     printf("[----------]\n");
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&b, 1, MPI_LONG_DOUBL , 0, MPI_COMM_WORLD);
-    MPI_Bcast(&n, 1, MPI_LONG_DOUBL , 0, MPI_COMM_WORLD);
+    MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&n, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
 
   //start timer
   clock_t start = clock(), diff;
