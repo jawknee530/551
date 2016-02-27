@@ -54,6 +54,11 @@ int main( int argc, char *argv[] ) {
 
   //start timer
   clock_t start = clock(), diff;
+
+  h = (b - a)/n;
+  local_n = n/comm_sz;
+
+  local_sum = Find_area(local_a, local_b, local_n, h);
   //end time
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
@@ -76,13 +81,12 @@ int main( int argc, char *argv[] ) {
   return 0;
 }
 
-long double Find_area(long double a, long double b, long double n) {
+long double Find_area(long double a, long double b, long double n, double h) {
   //h is the width of each slice
   //Compute the y value at points a and b then halve them because
   //those two slices are only used once each
-  long double h = (b-a)/n;
   long double y = Get_y(a)/2 + Get_y(b)/2;
-  int eq_count = 0;
+  //int eq_count = 0;
 
   //Loop that adds up all of the n slices of the function
   for (long double i = 1; i <= n-1; i++) {
@@ -93,7 +97,6 @@ long double Find_area(long double a, long double b, long double n) {
   //find the are by multiplying the sum of the slices by
   //the slice of each width and get the relative truee error
   long double result = y*h;
-  absolute_relative_error = Compute_error(result);
   return result;
 }
 
