@@ -10,13 +10,17 @@ int Update_progress(long double n, long double i, int eq_count);
 
 long double Compute_error(long double approx);
 
+long double Find_area(long double a, long double b, long double n);
+
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
 long double true_value = 4003.7209001513268265;
+long double absolute_relative_error;
 
 int main( int argc, char *argv[] ) {
   int my_rank, comm_sz;
   double local_n, local_a, loacal_b;
-  double a, b, n;
+  double a, b, n, h;
+  double local_sum, total_sum;
   char t_val[23] = {'4', '.', '0', '0', '3', '7', '2', '0', 
                     '9', '0', '0', '1', '5', '1', '3', '2', 
                     '6', '8', '2', '6', '5', '9', '\0'};
@@ -31,7 +35,7 @@ int main( int argc, char *argv[] ) {
   //get comm size
   MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
 
-  //assign variables from command line input
+  //process 0 assigns variables from command line input
   if (my_rank == 0) {
     printf("Enter a, b, and n\n");
     scanf("%f %f %f", a, b, n);
@@ -41,44 +45,13 @@ int main( int argc, char *argv[] ) {
       MPI_Send(a, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
       MPI_Send(b, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
       MPI_Send(n, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
-        sprintf(greeting, "Greetings from process %d of %d on %s!",
-                my_rank, comm_sz, processorName);
-
-        MPI_Send(greeting, strlen(greeting)+1, MPI_CHAR, 0, 0,
-                MPI_COMM_WORLD);
     }
   } else {
     MPI_Recv(a, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     MPI_Recv(b, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     MPI_Recv(n, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf("Greetings from process %d of %d on %s!\n",
-                my_rank, comm_sz, processorName);
-        for (int q = 1; q < comm_sz; q++) {
-            MPI_Recv(greeting, MAX_STRING, MPI_CHAR, q,
-                    0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            printf("%s\n", greeting);
-        }
   }
 
-  //start the timer after getting input
-  clock_t start = clock(), diff;
-
-  //h is the width of each slice
-  //Compute the y value at points a and b then halve them because
-  //those two slices are only used once each
-  long double h = (b-a)/n;
-  long double y = Get_y(a)/2 + Get_y(b)/2;
-  int eq_count = 0;
-
-  //Loop that adds up all of the n slices of the function
-  for (long double i = 1; i <= n-1; i++) {
-    eq_count = Update_progress(n, i, eq_count);
-    y += Get_y(a+i*h);
-  }
-
-  //find the are by multiplying the sum of the slices by
-  //the slice of each width and get the relative truee error
-  long double result = y*h;
   long double relative_true_error = Compute_error(result);
 
   //end time
@@ -101,6 +74,27 @@ int main( int argc, char *argv[] ) {
   }
 
   return 0;
+}
+
+long double Find_area(long double a, long double b, long double n) {
+  //h is the width of each slice
+  //Compute the y value at points a and b then halve them because
+  //those two slices are only used once each
+  long double h = (b-a)/n;
+  long double y = Get_y(a)/2 + Get_y(b)/2;
+  int eq_count = 0;
+
+  //Loop that adds up all of the n slices of the function
+  for (long double i = 1; i <= n-1; i++) {
+    //eq_count = Update_progress(n, i, eq_count);
+    y += Get_y(a+i*h);
+  }
+
+  //find the are by multiplying the sum of the slices by
+  //the slice of each width and get the relative truee error
+  long double result = y*h;
+  absolute_relative_error = Compute_error(result);
+  return result;
 }
 
 //compute the y value of any given x based on given function
