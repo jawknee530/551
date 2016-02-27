@@ -42,14 +42,14 @@ int main( int argc, char *argv[] ) {
     printf("--------------------------------------------------------------\n");
     printf("[----------]\n");
     for(i = 1; i < comm_sz; i++) {
-      MPI_Send(a, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
-      MPI_Send(b, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
-      MPI_Send(n, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
+      MPI_Send(&a, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
+      MPI_Send(&b, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
+      MPI_Send(&n, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
     }
   } else {
-    MPI_Recv(a, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(b, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    MPI_Recv(n, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(&a, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(&b, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    MPI_Recv(&n, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
   }
 
   //start timer
