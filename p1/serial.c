@@ -32,6 +32,7 @@ int main( int argc, char *argv[] ) {
     return 0;
   }
   printf("--------------------------------------------------------------\n");
+  printf("%Lf\n", n);
   printf("[----------]\n");
 
   //start the timer after getting input

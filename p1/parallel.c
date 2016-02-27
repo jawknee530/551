@@ -41,11 +41,23 @@ int main( int argc, char *argv[] ) {
       MPI_Send(a, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
       MPI_Send(b, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
       MPI_Send(n, 1, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
+        sprintf(greeting, "Greetings from process %d of %d on %s!",
+                my_rank, comm_sz, processorName);
+
+        MPI_Send(greeting, strlen(greeting)+1, MPI_CHAR, 0, 0,
+                MPI_COMM_WORLD);
     }
   } else {
     MPI_Recv(a, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     MPI_Recv(b, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     MPI_Recv(n, 1, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("Greetings from process %d of %d on %s!\n",
+                my_rank, comm_sz, processorName);
+        for (int q = 1; q < comm_sz; q++) {
+            MPI_Recv(greeting, MAX_STRING, MPI_CHAR, q,
+                    0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+            printf("%s\n", greeting);
+        }
   }
 
   //start the timer after getting input
