@@ -36,11 +36,11 @@ int main( int argc, char *argv[] ) {
 
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
-    printf("/--------------------------------------------------------------\\\n\n");
+    printf("\n/--------------------------------------------------------------\\\n\n");
     a = 100;
     b = 600;
     n = 10492900;
-    printf("Enter a, b, and n\n");
+    printf(" Enter a, b, and n\n ");
     scanf("%Lf %Lf %Lf", &a, &b, &n);
     printf("\n");
     printf("[--------------------------------------------------------------]\n\n");
@@ -76,18 +76,21 @@ int main( int argc, char *argv[] ) {
   //printf("[==========]\n\n");
 
   if (my_rank == 0) {
-    printf("Numbers must match to this point--V\n");
-    printf("True_Value is ----[ %se+03\n", t_val);
-    printf("Current Guess is -[ %.20Le\n\n", total_sum);
-    printf("Accepting Error -------[ %.15Le\n", accepting_error);
-    printf("Relative True Error ---[ %.15Le\n\n", absolute_relative_error);
-    printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
+    printf(" Numbers must match to this point--V\n");
+    printf(" True_Value is ----[ %se+03\n", t_val);
+    printf(" Current Guess is -[ %.20Le\n\n", total_sum);
+    printf(" Accepting Error -------[ %.15Le\n", accepting_error);
+    printf(" Relative True Error ---[ %.15Le\n\n", absolute_relative_error);
+    printf(" Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
          (msec/1000)/60, (msec/1000)%60, msec%1000);
 
     printf("[--------------------------------------------------------------]\n\n");
     if(absolute_relative_error < accepting_error) {
-      printf("Realtive True Error is less than the Accepting Error! Success!\n\n");
-      printf("\\--------------------------------------------------------------/\n");
+      printf(" Realtive True Error is less than the Accepting Error! Success!\n\n");
+      printf("\\--------------------------------------------------------------/\n\n");
+    } else {
+      printf(" Realtive True Error is more than the Accepting Error! Failure.\n\n");
+      printf("\\--------------------------------------------------------------/\n\n");
     }
   }
 
