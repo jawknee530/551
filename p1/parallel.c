@@ -10,7 +10,7 @@ int Update_progress(long double n, long double i, int eq_count);
 
 long double Compute_error(long double approx);
 
-long double Find_area(long double a, long double b, long double n, long double h);
+long double Find_area(int my_rank, long double a, long double b, long double n, long double h);
 
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
 
@@ -43,7 +43,7 @@ int main( int argc, char *argv[] ) {
     printf(" Enter a, b, and n\n ");
     scanf("%Lf %Lf %Lf", &a, &b, &n);
     printf("\n");
-    printf("[--------------------------------------------------------------]\n\n");
+    printf("[--------------------------------------------------------------]\n ");
   }
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
@@ -60,7 +60,7 @@ int main( int argc, char *argv[] ) {
   local_b = local_a + local_n*h;
 
   //get the sum for this process
-  local_sum = Find_area(local_a, local_b, local_n, h);
+  local_sum = Find_area(my_rank, local_a, local_b, local_n, h);
 
   //add up all of the local sums
   MPI_Reduce(&local_sum, &total_sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0,
@@ -76,7 +76,8 @@ int main( int argc, char *argv[] ) {
   //printf("[==========]\n\n");
 
   if (my_rank == 0) {
-    printf(" Numbers must match to this point--V\n");
+    printf("\n\\                                                              /\n ");
+    printf("\n Numbers must match to this point--V\n");
     printf(" True_Value is ----[ %se+03\n", t_val);
     printf(" Current Guess is -[ %.20Le\n\n", total_sum);
     printf(" Accepting Error -------[ %.15Le\n", accepting_error);
@@ -99,18 +100,22 @@ int main( int argc, char *argv[] ) {
   return 0;
 }
 
-long double Find_area(long double a, long double b, long double n, long double h) {
+long double Find_area(int my_rank, long double a, long double b, long double n, long double h) {
   //h is the width of each slice
   //Compute the y value at points a and b then halve them because
   //those two slices are only used once each
   long double y = Get_y(a)/2 + Get_y(b)/2;
   int eq_count = 0;
+  long int count;
+  long int prog = n/62;
 
   //Loop that adds up all of the n slices of the function
   for (long double i = 1; i <= n-1; i++) {
-    //if(my_rank==0) {
+    count = i;
+    if(my_rank==0 && count % prog == 0) {
+      printf("=");
       //eq_count = Update_progress(n, i, eq_count);
-    //}
+    }
     y += Get_y(a+i*h);
   }
 
