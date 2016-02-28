@@ -39,7 +39,7 @@ int main( int argc, char *argv[] ) {
     printf("--------------------------------------------------------------\n");
     a = 100;
     b = 600;
-    n = 10000000000;
+    n = 100000000000;
     //printf("Enter a, b, and n\n");
     //scanf("%f %f %f", &a, &b, &n);
   }
@@ -102,9 +102,9 @@ long double Find_area(long double a, long double b, long double n, long double h
 
   //Loop that adds up all of the n slices of the function
   for (long double i = 1; i <= n-1; i++) {
-    if(my_rank==0) {
-      eq_count = Update_progress(n, i, eq_count);
-    }
+    //if(my_rank==0) {
+      //eq_count = Update_progress(n, i, eq_count);
+    //}
     y += Get_y(a+i*h);
   }
 

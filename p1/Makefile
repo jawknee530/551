@@ -4,4 +4,7 @@ serial: serial.c
 parallel: parallel.c
 	mpicc -g -std=c99 -o parallel parallel.c -lm
 
+auto_parallel: auto_parallel.c
+	mpicc -g -std=c99 -o auto_parallel auto_parallel.c -lm
+
 
