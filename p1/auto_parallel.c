@@ -10,7 +10,7 @@ int Update_progress(long double n, long double i, int eq_count);
 
 long double Compute_error(long double approx);
 
-long double Find_area(long double a, long double b, long double n, long double h);
+long double Find_area(int my_rank, long double a, long double b, long double n, long double h);
 
 char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
 
@@ -20,6 +20,14 @@ int main( int argc, char *argv[] ) {
   long double a, b, n, h;
   long double local_sum, total_sum;
   long double absolute_relative_error;
+  int best_n;
+  int lowest_n = 1;
+  long double best_err = 1;
+  long double lowest_err = 1;
+  int step = 5;
+  int runs = 5000;
+  int range = runs*step;
+  long int begin = 10480000;
   char t_val[23] = {'4', '.', '0', '0', '3', '7', '2', '0', 
                     '9', '0', '0', '1', '5', '1', '3', '2', 
                     '6', '8', '2', '6', '5', '9', '\0'};
@@ -34,39 +42,52 @@ int main( int argc, char *argv[] ) {
   //get comm size
   MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
 
-  //process 0 assigns variables from command line input
+  a = 100;
+  b = 600;
+
   if (my_rank == 0) {
-    printf("--------------------------------------------------------------\n");
-    a = 100;
-    b = 600;
-    n = 10492900;
-    printf("N is %Le\n", n);
-    //printf("Enter a, b, and n\n");
-    //scanf("%f %f %f", &a, &b, &n);
+    printf("Start :%d\n", begin);
+    printf("End --:%d\n", begin+range);
+    printf("Step -: %d\n", step);
+    printf("RUns -: %d\n", runs);
+    printf("Range :%d\n", range);
   }
-    MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&n, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
 
   //start timer
   clock_t start = clock(), diff;
 
-  //h is global for all processes.
-  h = (b - a)/n;
-  //set up local variables for each process
-  local_n = n/comm_sz;
-  local_a = a + my_rank*local_n*h;
-  local_b = local_a + local_n*h;
+  for(int i = 1; i<runs ; i++) {
+    
 
-  //get the sum for this process
-  local_sum = Find_area(local_a, local_b, local_n, h);
+    n = begin + step*i;
 
-  //add up all of the local sums
-  MPI_Reduce(&local_sum, &total_sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0,
-      MPI_COMM_WORLD);
-  
-  //get absolute relative true error
-  absolute_relative_error = (Compute_error(total_sum));
+    //h is global for all processes.
+    h = (b - a)/n;
+    //set up local variables for each process
+    local_n = n/comm_sz;
+    local_a = a + my_rank*local_n*h;
+    local_b = local_a + local_n*h;
+
+    //get the sum for this process
+    local_sum = Find_area(my_rank, local_a, local_b, local_n, h);
+
+    //add up all of the local sums
+    MPI_Reduce(&local_sum, &total_sum, 1, MPI_LONG_DOUBLE, MPI_SUM, 0,
+        MPI_COMM_WORLD);
+    
+    //get absolute relative true error
+    absolute_relative_error = (Compute_error(total_sum));
+
+    if(absolute_relative_error < accepting_error && 
+        absolute_relative_error < best_err) {
+      best_n = n;
+      best_err = absolute_relative_error;
+      if(lowest_n == 1) {
+        lowest_n = n;
+        lowest_err = best_err;
+      }
+    }
+  }
 
   //end time
   diff = clock() - start;
@@ -75,15 +96,26 @@ int main( int argc, char *argv[] ) {
   //printf("[==========]\n\n");
 
   if (my_rank == 0) {
+    printf("[--------------------------------------------------------------]\n");
+    printf("The Result is   : %.15Le\n"
+           "Best Error is   : %.15Le\n"
+           "With N value of : %d\n", total_sum, best_err, best_n);
+    printf(">------------------------------------------------------------<\n");
+    printf("Lowest Error is   : %.15Le\n"
+           "With N value of   : %d\n", lowest_err, lowest_n);
+    printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n",
+              (msec/1000)/60, (msec/1000)%60, msec%1000);
+    printf("[--------------------------------------------------------------]\n");
+
+    printf("--------------------------------------------------------------\n");
     printf("Numbers must match to this point--V\n");
     printf("True_Value is ----[ %se+03\n", t_val);
     printf("Current Guess is -[ %.20Le\n\n", total_sum);
     printf("Accepting Error -------[ %.15Le\n", accepting_error);
     printf("Relative True Error ---[ %.15Le\n\n", absolute_relative_error);
-    printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
-         (msec/1000)/60, (msec/1000)%60, msec%1000);
+    printf("[--------------------------------------------------------------]\n");
 
-    if(absolute_relative_error < accepting_error) {
+    if(best_err < accepting_error) {
       printf("Realtive True Error is less than the Accepting Error! Success!\n");
       printf("--------------------------------------------------------------\n");
     }
@@ -94,7 +126,7 @@ int main( int argc, char *argv[] ) {
   return 0;
 }
 
-long double Find_area(long double a, long double b, long double n, long double h) {
+long double Find_area(int my_rank, long double a, long double b, long double n, long double h) {
   //h is the width of each slice
   //Compute the y value at points a and b then halve them because
   //those two slices are only used once each
@@ -104,7 +136,7 @@ long double Find_area(long double a, long double b, long double n, long double h
   //Loop that adds up all of the n slices of the function
   for (long double i = 1; i <= n-1; i++) {
     //if(my_rank==0) {
-      //eq_count = Update_progress(n, i, eq_count);
+     // eq_count = Update_progress(n, i, eq_count);
     //}
     y += Get_y(a+i*h);
   }
