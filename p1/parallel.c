@@ -36,13 +36,14 @@ int main( int argc, char *argv[] ) {
 
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
-    printf("--------------------------------------------------------------\n");
+    printf("/--------------------------------------------------------------\\\n\n");
     a = 100;
     b = 600;
     n = 10492900;
-    printf("N is %Le\n", n);
-    //printf("Enter a, b, and n\n");
-    //scanf("%f %f %f", &a, &b, &n);
+    printf("Enter a, b, and n\n");
+    scanf("%Lf %Lf %Lf", &a, &b, &n);
+    printf("\n");
+    printf("[--------------------------------------------------------------]\n\n");
   }
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
@@ -83,9 +84,10 @@ int main( int argc, char *argv[] ) {
     printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
          (msec/1000)/60, (msec/1000)%60, msec%1000);
 
+    printf("[--------------------------------------------------------------]\n\n");
     if(absolute_relative_error < accepting_error) {
-      printf("Realtive True Error is less than the Accepting Error! Success!\n");
-      printf("--------------------------------------------------------------\n");
+      printf("Realtive True Error is less than the Accepting Error! Success!\n\n");
+      printf("\\--------------------------------------------------------------/\n");
     }
   }
 
