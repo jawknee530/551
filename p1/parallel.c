@@ -36,9 +36,9 @@ int main( int argc, char *argv[] ) {
 
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
-    printf("\n/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\\\n");
-    printf("\n|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|\n");
-    printf("\n|--------------------------------------------------------------|\n\n");
+    printf("/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\\\n");
+    printf("|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|\n");
+    printf("|--------------------------------------------------------------|\n\n");
     a = 100;
     b = 600;
     n = 12000000;
@@ -81,8 +81,7 @@ int main( int argc, char *argv[] ) {
   //printf("[==========]\n\n");
 
   if (my_rank == 0) {
-    printf("\n\\                                                              /\n ");
-    printf("\n Numbers must match to this point--V\n");
+    printf("\n\n Numbers must match to this point--V\n");
     printf(" True_Value is ----[ %se+03\n", t_val);
     printf(" Current Guess is -[ %.20Le\n\n", total_sum);
     printf(" Accepting Error -------[ %.15Le\n", accepting_error);
@@ -93,11 +92,11 @@ int main( int argc, char *argv[] ) {
     printf("[--------------------------------------------------------------]\n\n");
     if(absolute_relative_error < accepting_error) {
       printf(" Realtive True Error is less than the Accepting Error! Success!\n\n");
-      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n\n");
+      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n");
       printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/\n\n");
     } else {
       printf(" Realtive True Error is more than the Accepting Error! Failure.\n\n");
-      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n\n");
+      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n");
       printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/\n\n");
     }
   }
