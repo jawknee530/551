@@ -1,13 +1,24 @@
---------------------------------------------------------------
-N is 1.049290e+07
-Numbers must match to this point--V
-True_Value is ----[ 4.00372090015132682659e+03
-Current Guess is -[ 4.00372090015134700192e+03
 
-Accepting Error -------[ 5.000000000000000e-15
-Relative True Error ---[ 4.999124860872750e-15
+/--------------------------------------------------------------\
 
-Time taken: 0 minutes, 0 seconds, and 83 milliseconds
+ Enter a, b, and n
+ 
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134699970e+03
 
-Realtive True Error is less than the Accepting Error! Success!
---------------------------------------------------------------
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 4.998570265259162e-15
+
+ Time taken: 0 minutes, 1 seconds, and 485 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+\--------------------------------------------------------------/
+

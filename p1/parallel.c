@@ -36,13 +36,18 @@ int main( int argc, char *argv[] ) {
 
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
-    printf("\n/--------------------------------------------------------------\\\n\n");
+    printf("\n/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\\\n");
+    printf("\n|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|\n");
+    printf("\n|--------------------------------------------------------------|\n\n");
     a = 100;
     b = 600;
-    n = 10492900;
-    printf(" Enter a, b, and n\n ");
-    scanf("%Lf %Lf %Lf", &a, &b, &n);
+    n = 12000000;
+    //printf(" Enter a, b, and n\n ");
+    //scanf("%Lf %Lf %Lf", &a, &b, &n);
     printf("\n");
+    printf(" Range -----[ %.0Lf -> %.0Lf\n"
+           " N value ---[ %Le\n"
+           " Processes -[ %d\n\n", a, b, n, comm_sz);
     printf("[--------------------------------------------------------------]\n ");
   }
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
@@ -88,10 +93,12 @@ int main( int argc, char *argv[] ) {
     printf("[--------------------------------------------------------------]\n\n");
     if(absolute_relative_error < accepting_error) {
       printf(" Realtive True Error is less than the Accepting Error! Success!\n\n");
-      printf("\\--------------------------------------------------------------/\n\n");
+      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n\n");
+      printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/\n\n");
     } else {
       printf(" Realtive True Error is more than the Accepting Error! Failure.\n\n");
-      printf("\\--------------------------------------------------------------/\n\n");
+      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n\n");
+      printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/\n\n");
     }
   }
 

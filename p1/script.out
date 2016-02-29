@@ -1,0 +1,363 @@
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 1
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134200192e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.750286458197660e-15
+
+ Time taken: 0 minutes, 1 seconds, and 861 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 2
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134217933e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.794598647723258e-15
+
+ Time taken: 0 minutes, 1 seconds, and 125 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 4
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134233232e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.832810285499398e-15
+
+ Time taken: 0 minutes, 0 seconds, and 564 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 6
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134230123e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.825045946909181e-15
+
+ Time taken: 0 minutes, 0 seconds, and 380 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 8
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134231078e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.827430708047605e-15
+
+ Time taken: 0 minutes, 0 seconds, and 283 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 10
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134228547e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.821108318052713e-15
+
+ Time taken: 0 minutes, 0 seconds, and 226 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 12
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134228702e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.821496534982224e-15
+
+ Time taken: 0 minutes, 0 seconds, and 192 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 14
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00371682509030966735e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 1.017818454119878e-06
+
+ Time taken: 0 minutes, 0 seconds, and 164 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is more than the Accepting Error! Failure.
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 16
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134227503e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.818501718668855e-15
+
+ Time taken: 0 minutes, 0 seconds, and 141 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 18
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00371690766397381256e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 9.971942232595070e-07
+
+ Time taken: 0 minutes, 0 seconds, and 126 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is more than the Accepting Error! Failure.
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+
+
+/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+
+|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|
+
+|--------------------------------------------------------------|
+
+
+ Range -----[ 100 -> 600
+ N value ---[ 1.200000e+07
+ Processes -[ 20
+
+[--------------------------------------------------------------]
+ ==============================================================
+\                                                              /
+ 
+ Numbers must match to this point--V
+ True_Value is ----[ 4.00372090015132682659e+03
+ Current Guess is -[ 4.00372090015134228880e+03
+
+ Accepting Error -------[ 5.000000000000000e-15
+ Relative True Error ---[ 3.821940211473094e-15
+
+ Time taken: 0 minutes, 0 seconds, and 116 milliseconds
+
+[--------------------------------------------------------------]
+
+ Realtive True Error is less than the Accepting Error! Success!
+
+|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|
+
+\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/
+

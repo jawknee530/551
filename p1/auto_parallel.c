@@ -24,9 +24,7 @@ int main( int argc, char *argv[] ) {
   int lowest_n = 1;
   long double best_err = 1;
   long double lowest_err = 1;
-  int step = 5;
-  int runs = 5000;
-  int range = runs*step;
+  int range, runs, step;
   long int begin = 10480000;
   char t_val[23] = {'4', '.', '0', '0', '3', '7', '2', '0', 
                     '9', '0', '0', '1', '5', '1', '3', '2', 
@@ -42,8 +40,19 @@ int main( int argc, char *argv[] ) {
   //get comm size
   MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
 
-  a = 100;
-  b = 600;
+  if (my_rank == 0) {
+    printf("\n/--------------------------------------------------------------\\\n\n");
+    a = 100;
+    b = 600;
+    printf(" Enter begin, step, and runs\n ");
+    scanf("%d %d %d", &begin, &step, &runs);
+    range = runs*step;
+    printf("\n");
+    printf("[--------------------------------------------------------------]\n");
+  }
+    MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&n, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
 
   if (my_rank == 0) {
     printf("Start :%d\n", begin);
@@ -57,8 +66,6 @@ int main( int argc, char *argv[] ) {
   clock_t start = clock(), diff;
 
   for(int i = 1; i<runs ; i++) {
-    
-
     n = begin + step*i;
 
     //h is global for all processes.
