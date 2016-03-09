@@ -41,7 +41,7 @@ int main( int argc, char *argv[] ) {
     printf("|--------------------------------------------------------------|\n\n");
     a = 100;
     b = 600;
-    n = 12000000;
+    n = 11000190;
     //printf(" Enter a, b, and n\n ");
     //scanf("%Lf %Lf %Lf", &a, &b, &n);
     printf("\n");
