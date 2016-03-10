@@ -14,7 +14,8 @@ int Update_progress(long double n, long double i, int eq_count);
 
 long double Compute_error(long double approx);
 
-long double Find_area(int my_rank, long double a, long double b, long double n, long double h);
+long double Find_area(int my_rank, long double a, long double b,
+    long double n, long double h);
 
 int main( int argc, char *argv[] ) {
   //set up variables for use later
@@ -39,9 +40,12 @@ int main( int argc, char *argv[] ) {
 
   //process 0 assigns variables from command line input
   if (my_rank == 0) {
-    printf("/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\\\n");
-    printf("|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|\n");
-    printf("|--------------------------------------------------------------|\n\n");
+    printf("/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+        "MMMMMMMMM\\\n");
+    printf("|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+        "MMMMMMMMM|\n");
+    printf("|-----------------------------------------------------"
+        "---------|\n\n");
     //a = 100;
     //b = 600;
     //n = 160000000;
@@ -52,7 +56,8 @@ int main( int argc, char *argv[] ) {
     printf(" Range -----[ %.0Lf -> %.0Lf\n"
            " N value ---[ %Le\n"
            " Processes -[ %d\n\n", a, b, n, comm_sz);
-    printf("[--------------------------------------------------------------]\n ");
+    printf("[-----------------------------------------------------"
+        "---------]\n ");
   }
   //broadcast the values of a, b, and n to all other procs
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
@@ -91,19 +96,27 @@ int main( int argc, char *argv[] ) {
     printf(" True_Value is ----[ %se+03\n", t_val);
     printf(" Current Guess is -[ %.20Le\n\n", total_sum);
     printf(" Accepting Error -------[ %.15Le\n", accepting_error);
-    printf(" Relative True Error ---[ %.15Le\n\n", absolute_relative_error);
-    printf(" Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
-         (msec/1000)/60, (msec/1000)%60, msec%1000);
+    printf(" Relative True Error ---[ %.15Le\n\n", 
+        absolute_relative_error);
+    printf(" Time taken: %d minutes, %d seconds, and %d milliseco"
+        "nds\n\n", (msec/1000)/60, (msec/1000)%60, msec%1000);
 
-    printf("[--------------------------------------------------------------]\n\n");
+    printf("[----------------------------------------------------"
+        "----------]\n\n");
     if(absolute_relative_error < accepting_error) {
-      printf(" Realtive True Error is less than the Accepting Error! Success!\n\n");
-      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n");
-      printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/\n\n");
+      printf(" Realtive True Error is less than the Accepting Error!"
+          "Success!\n\n");
+      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+          "WWWWWWWW|\n");
+      printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+          "WWWWWWWWW/\n\n");
     } else {
-      printf(" Realtive True Error is more than the Accepting Error! Failure.\n\n");
-      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW|\n");
-      printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW/\n\n");
+      printf(" Realtive True Error is more than the Accepting Error!"
+          "Failure.\n\n");
+      printf("|WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+          "WWWWWWWW|\n");
+      printf("\\WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+          "WWWWWWWWW/\n\n");
     }
   }
 
@@ -112,12 +125,13 @@ int main( int argc, char *argv[] ) {
   return 0;
 }
 
-long double Find_area(int my_rank, long double a, long double b, long double n, long double h) {
+long double Find_area(int my_rank, long double a, long double b,
+    long double n, long double h) {
   //h is the width of each slice
   //Compute the y value at points a and b then halve them because
   //those two slices are only used once each
   long double y = Get_y(a)/2 + Get_y(b)/2;
-  int eq_count = 0;
+  //int eq_count = 0;
   long int count;
   long int prog = n/62;
 
