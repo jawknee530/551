@@ -16,8 +16,6 @@ long double Compute_error(long double approx);
 
 long double Find_area(int my_rank, long double a, long double b, long double n, long double h);
 
-//char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
-
 int main( int argc, char *argv[] ) {
   //set up variables for use later
   int my_rank, comm_sz;
@@ -154,6 +152,7 @@ long double Compute_error(long double approx) {
  * This function is not used. It was an old progress bar
  */
 int Update_progress(long double n, long double i, int eq_count) {
+  char progress[11];
   double ratio = i/n;
   //printf("%f", ratio);
   if (.09 < ratio && ratio < .11 && eq_count < 1) {
