@@ -39,11 +39,11 @@ int main( int argc, char *argv[] ) {
     printf("/MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\\\n");
     printf("|MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM|\n");
     printf("|--------------------------------------------------------------|\n\n");
-    a = 100;
-    b = 600;
-    n = 160000000;
-    //printf(" Enter a, b, and n\n ");
-    //scanf("%Lf %Lf %Lf", &a, &b, &n);
+    //a = 100;
+    //b = 600;
+    //n = 160000000;
+    printf(" Enter a, b, and n\n ");
+    scanf("%Lf %Lf %Lf", &a, &b, &n);
     printf("\n");
     printf(" Range -----[ %.0Lf -> %.0Lf\n"
            " N value ---[ %Le\n"
