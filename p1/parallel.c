@@ -1,3 +1,7 @@
+/* File: parallel.c
+ * Author: Jon Allen
+ * Class: CSCI 551
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -12,9 +16,10 @@ long double Compute_error(long double approx);
 
 long double Find_area(int my_rank, long double a, long double b, long double n, long double h);
 
-char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
+//char progress[11] = {'-','-','-','-','-','-','-','-','-','-','\0'};
 
 int main( int argc, char *argv[] ) {
+  //set up variables for use later
   int my_rank, comm_sz;
   long double local_n, local_a, local_b;
   long double a, b, n, h;
@@ -44,12 +49,14 @@ int main( int argc, char *argv[] ) {
     //n = 160000000;
     printf(" Enter a, b, and n\n ");
     scanf("%Lf %Lf %Lf", &a, &b, &n);
+    //ouput at the beginning of the program
     printf("\n");
     printf(" Range -----[ %.0Lf -> %.0Lf\n"
            " N value ---[ %Le\n"
            " Processes -[ %d\n\n", a, b, n, comm_sz);
     printf("[--------------------------------------------------------------]\n ");
   }
+  //broadcast the values of a, b, and n to all other procs
     MPI_Bcast(&a, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&b, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Bcast(&n, 1, MPI_LONG_DOUBLE, 0, MPI_COMM_WORLD);
@@ -78,8 +85,9 @@ int main( int argc, char *argv[] ) {
   diff = clock() - start;
   int msec = diff * 1000 / CLOCKS_PER_SEC;
 
-  //printf("[==========]\n\n");
 
+  //Print the programs output if the process is rank 0
+  //Lots of M and W to make script based runs easier to tell apart
   if (my_rank == 0) {
     printf("\n\n Numbers must match to this point--V\n");
     printf(" True_Value is ----[ %se+03\n", t_val);
@@ -142,7 +150,9 @@ long double Compute_error(long double approx) {
   return fabs(true_error/true_value);
 }
 
-
+/*
+ * This function is not used. It was an old progress bar
+ */
 int Update_progress(long double n, long double i, int eq_count) {
   double ratio = i/n;
   //printf("%f", ratio);
