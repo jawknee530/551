@@ -1,3 +1,7 @@
+/* File: serial.c
+ * Name; Jon Allen
+ * Class: CSCI 551
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -33,7 +37,8 @@ int main( int argc, char *argv[] ) {
     printf("Not the correct number of arguments\n");
     return 0;
   }
-  printf("--------------------------------------------------------------\n");
+  printf("---------------------------------------------------------"
+      "-----\n");
   printf("%Lf\n", n);
   printf("[----------]\n");
 
@@ -69,12 +74,15 @@ int main( int argc, char *argv[] ) {
   printf("Current Guess is -[ %.20Le\n\n", result);
   printf("Accepting Error -------[ %.15Le\n", accepting_error);
   printf("Relative True Error ---[ %.15Le\n\n", relative_true_error);
-  printf("Time taken: %d minutes, %d seconds, and %d milliseconds\n\n", 
+  printf("Time taken: %d minutes, %d seconds, and %d milliseconds"
+      "\n\n", 
          (msec/1000)/60, (msec/1000)%60, msec%1000);
 
   if(relative_true_error < accepting_error) {
-    printf("Realtive True Error is less than the Accepting Error! Success!\n");
-    printf("--------------------------------------------------------------\n");
+    printf("Realtive True Error is less than the Accepting Error! "
+        "Success!\n");
+    printf("-------------------------------------------------------"
+        "-------\n");
   }
 
   return 0;
