@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include <math.h>
 using namespace std;
 
 void Solveijk (int *A, int *B, int *C, int n);
@@ -14,42 +15,58 @@ void Solveikj (int *A, int *B, int *C, int n);
 void Solvejki (int *A, int *B, int *C, int n);
 void Solvekij (int *A, int *B, int *C, int n);
 void Solvekji (int *A, int *B, int *C, int n);
+//figure out your range
+void getRange (int &my_i, int &my_j, int &my_k, int n, int p, int my_rank);
 
 
 int main(int argc, char *argv[]) {
+  int my_rank, comm_sz;
   string form;
   string flag;
   int n;
+  int my_i, my_j, my_k;
 
-  cin >> form;
-  cin >> flag;
-  cin >> n;
+  //start mpi
+  MPI_Init(NULL, NULL);
+  //get my rank
+  MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+  //get comm size
+  MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
 
-  int A[n*n];
-  int B[n*n];
-  int C[n*n];
+  if(my_rank == 0) {
+    cin >> form;
+    cin >> flag;
+    cin >> n;
 
-  for(int i = 0; i < n*n; i++) {
-    C[i] = 0;
+    int A[n*n];
+    int B[n*n];
+    int C[n*n];
+
+    for(int i = 0; i < n*n; i++) {
+      C[i] = 0;
+    }
+
+    if(flag == "I") {
+      for(int i = 0; i < n*n; i++) {
+        cin >> A[i];
+      }
+      for(int i = 0; i < n*n; i++) {
+        cin >> B[i];
+      }
+    }
+    else if(flag == "R") {
+      srand(time(NULL));
+      for(int i = 0; i < n*n; i++) {
+        A[i] = rand() % 100;
+      }
+      for(int i = 0; i < n*n; i++) {
+        B[i] = rand() % 100;
+      }
+    }
   }
 
-  if(flag == "I") {
-    for(int i = 0; i < n*n; i++) {
-      cin >> A[i];
-    }
-    for(int i = 0; i < n*n; i++) {
-      cin >> B[i];
-    }
-  }
-  else if(flag == "R") {
-    srand(time(NULL));
-    for(int i = 0; i < n*n; i++) {
-      A[i] = rand() % 100;
-    }
-    for(int i = 0; i < n*n; i++) {
-      B[i] = rand() % 100;
-    }
-  }
+  //set each procs i, j, k
+  getRange(my_i, my_j, my_k, n, comm_sz);
 
   if(form == "ijk") {
     Solveijk(A, B, C, n);
@@ -85,7 +102,27 @@ int main(int argc, char *argv[]) {
   }
   cout << endl;
 
+  //stop MPI
+  MPI_Finalize();
   return 0;
+}
+
+void getRange (int &my_i, int &my_j, int &my_k, int n, int p, int my_rank) {
+  if(p < n) {
+    my_i = my_rank * (n/p) % n;
+    my_j = n;
+    my_k = n;
+  }
+  else if(n <= p < (n*n)) {
+    my_i = my_rank/n;
+    my_j = my_rank * ((n*n)/p) % n;
+    my_k = n;
+  }
+  else if((n*n) <= p < (n*n*n)) {
+    my_i = my_rank / (n*n);
+    my_j = my_rank / n;
+    my_k = my_rank * ((n*n*n)/p) % n;
+  }
 }
 
 void Solveijk (int *A, int *B, int *C, int n) {
