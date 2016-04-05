@@ -14,7 +14,6 @@ void Solveijk (int *A, int *B, int *C, int n, int comm_sz);
 void Solveikj (int *A, int *B, int *C, int n, int comm_sz);
 void Solvekij (int *A, int *B, int *C, int n, int comm_sz);
 //figure out your range
-//void getRange (int &my_i, int &my_j, int &my_k, int n, int p, int my_rank);
 
 
 int main(int argc, char *argv[]) {
@@ -23,8 +22,7 @@ int main(int argc, char *argv[]) {
   string form;
   string flag;
   int n;
-  int iform, ierr; //1 ijk, 2 ikj, 3 kij
-  int my_i, my_j, my_k;
+  int iform; //1 ijk, 2 ikj, 3 kij
   int *A, *B, *C, *my_A, *my_C;
   int data[2];
 
@@ -36,13 +34,14 @@ int main(int argc, char *argv[]) {
   MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
 
   if(my_rank == 0) {
-    cout << "Comm_size: " << comm_sz << endl;
+    cout << "--------------------------------------" << endl;
+    cout << " Comm_size: " << comm_sz << endl;
   }
 
   if(my_rank == 0) {
     form = "ijk";
     flag = "R";
-    n = 4800;
+    n = 100;
     //cin >> form;
     //cin >> flag;
     //cin >> n;
@@ -190,7 +189,7 @@ int main(int argc, char *argv[]) {
   }
 
   if(my_rank == 0) {
-    cout << "Elapsed time = " << t_elapsed << "in seconds\n";
+    cout << " Elapsed time = " << t_elapsed << "in seconds\n\n";
   }
 
   //stop MPI

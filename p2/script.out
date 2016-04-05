@@ -1,3 +1,4 @@
-Comm_size: 1
+--------------------------------------
+ Comm_size: 20
 [mpiexec@o251-02] Sending Ctrl-C to processes as requested
 [mpiexec@o251-02] Press Ctrl-C again to force abort
