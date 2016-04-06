@@ -1,2 +1,32 @@
 [mpiexec@o251-02] Sending Ctrl-C to processes as requested
 [mpiexec@o251-02] Press Ctrl-C again to force abort
+--------------------------------------
+ Comm_size: 20
+ Form: ijk
+[mpiexec@o251-02] Sending Ctrl-C to processes as requested
+[mpiexec@o251-02] Press Ctrl-C again to force abort
+--------------------------------------
+ Comm_size: 20
+ Form: ijk
+ Elapsed time = 51.3521in seconds
+
+--------------------------------------
+ Comm_size: 20
+ Form: ijk
+ Elapsed time = 51.5238in seconds
+
+--------------------------------------
+ Comm_size: 20
+ Form: ijk
+ Elapsed time = 50.6993in seconds
+
+--------------------------------------
+ Comm_size: 20
+ Form: ijk
+ Elapsed time = 50.8833in seconds
+
+--------------------------------------
+ Comm_size: 20
+ Form: ijk
+ Elapsed time = 54.0683in seconds
+

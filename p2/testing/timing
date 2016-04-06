@@ -1,13 +1,14 @@
 #!/bin/bash
 
 if [ $# == 0 ]; then
-  echo "use flags -ijk -ikj or -kij to run tests on those forms"
-  echo "or use the flag -all to run all forms (warning: will be long)"
+  echo "use flags -ijk -ikj or -kij to runtests on those forms"
+  echo "or use the flag -all to runall forms (warning: will be long)"
 else
   if [ $1 == "-ikj" ] || [ $1 == "-all" ]; then 
     echo "Starting ikj 20"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ikj20.out
       cat hostfiles/inputikj | mpirun -hostfile hostfiles/10pcs ../matrixmult >> ./results/ikj20.out
     done
@@ -15,6 +16,7 @@ else
     echo "Starting ikj 16"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ikj16.out
       cat hostfiles/inputikj | mpirun -hostfile hostfiles/8pcs ../matrixmult >> ./results/ikj16.out
     done
@@ -22,6 +24,7 @@ else
     echo "Starting ikj 12"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ikj12.out
       cat hostfiles/inputikj | mpirun -hostfile hostfiles/6pcs ../matrixmult >> ./results/ikj12.out
     done
@@ -29,6 +32,7 @@ else
     echo "Starting ikj 8"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ikj8.out
       cat hostfiles/inputikj | mpirun -hostfile hostfiles/4pcs ../matrixmult >> ./results/ikj8.out
     done
@@ -36,6 +40,7 @@ else
     echo "Starting ikj 4"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ikj4.out
       cat hostfiles/inputikj | mpirun -hostfile hostfiles/2pcs ../matrixmult >> ./results/ikj4.out
     done
@@ -43,6 +48,7 @@ else
     echo "Starting ikj 1"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ikj1.out
       cat hostfiles/inputikj | mpirun -n 1 ../matrixmult >> ./results/ikj1.out
     done
@@ -59,6 +65,7 @@ else
     echo "Starting kij 20"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/kij20.out
       cat hostfiles/inputkij | mpirun -hostfile hostfiles/10pcs ../matrixmult >> ./results/kij20.out
     done
@@ -66,6 +73,7 @@ else
     echo "Starting kij 16"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/kij16.out
       cat hostfiles/inputkij | mpirun -hostfile hostfiles/8pcs ../matrixmult >> ./results/kij16.out
     done
@@ -73,6 +81,7 @@ else
     echo "Starting kij 12"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/kij12.out
       cat hostfiles/inputkij | mpirun -hostfile hostfiles/6pcs ../matrixmult >> ./results/kij12.out
     done
@@ -80,6 +89,7 @@ else
     echo "Starting kij 8"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/kij8.out
       cat hostfiles/inputkij | mpirun -hostfile hostfiles/4pcs ../matrixmult >> ./results/kij8.out
     done
@@ -87,6 +97,7 @@ else
     echo "Starting kij 4"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/kij4.out
       cat hostfiles/inputkij | mpirun -hostfile hostfiles/2pcs ../matrixmult >> ./results/kij4.out
     done
@@ -94,6 +105,7 @@ else
     echo "Starting kij 1"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/kij1.out
       cat hostfiles/inputkij | mpirun -n 1 ../matrixmult >> ./results/kij1.out
     done
@@ -110,6 +122,7 @@ else
     echo "Starting ijk 20"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ijk20.out
       cat hostfiles/inputijk | mpirun -hostfile hostfiles/10pcs ../matrixmult >> ./results/ijk20.out
     done
@@ -117,6 +130,7 @@ else
     echo "Starting ijk 16"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ijk16.out
       cat hostfiles/inputijk | mpirun -hostfile hostfiles/8pcs ../matrixmult >> ./results/ijk16.out
     done
@@ -124,6 +138,7 @@ else
     echo "Starting ijk 12"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ijk12.out
       cat hostfiles/inputijk | mpirun -hostfile hostfiles/6pcs ../matrixmult >> ./results/ijk12.out
     done
@@ -131,6 +146,7 @@ else
     echo "Starting ijk 8"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ijk8.out
       cat hostfiles/inputijk | mpirun -hostfile hostfiles/4pcs ../matrixmult >> ./results/ijk8.out
     done
@@ -138,6 +154,7 @@ else
     echo "Starting ijk 4"
     for i in `seq 1 5`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ijk4.out
       cat hostfiles/inputijk | mpirun -hostfile hostfiles/2pcs ../matrixmult >> ./results/ijk4.out
     done
@@ -145,20 +162,21 @@ else
     echo "Starting ijk 1"
     for i in `seq 1 2`;
     do
+      echo -ne "On run" $i "of 5.\r"
       touch ./results/ijk1.out
       cat hostfiles/inputijk | mpirun -n 1 ../matrixmult >> ./results/ijk1.out
     done
   fi
 fi
 
-#mpirun -hostfile 2pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 3pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 5pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 6pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 7pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 9pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 10pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 11pcs -ppn 1 matrixmult >> script.out
-#mpirun -hostfile 7pcs matrixmult >> script.out
-#mpirun -hostfile 9pcs matrixmult >> script.out
+#mpirun-hostfile 2pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 3pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 5pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 6pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 7pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 9pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 10pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 11pcs -ppn 1 matrixmult >> script.out
+#mpirun-hostfile 7pcs matrixmult >> script.out
+#mpirun-hostfile 9pcs matrixmult >> script.out
 
