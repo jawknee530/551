@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   string flag;
   int n;
   int iform; //1 ijk, 2 ikj, 3 kij
-  int *A, *B, *C, *my_A, *my_C;
+  int *A, *B, *C, *my_A, *my_C, *my_B;
   int data[2];
 
   //start mpi
@@ -39,12 +39,12 @@ int main(int argc, char *argv[]) {
   }
 
   if(my_rank == 0) {
-    form = "ijk";
-    flag = "R";
-    n = 100;
-    //cin >> form;
-    //cin >> flag;
-    //cin >> n;
+    //form = "ijk";
+    //flag = "R";
+    //n = 4800;
+    cin >> form;
+    cin >> flag;
+    cin >> n;
 
     A = (int *)calloc(n*n,sizeof(int));
     B = (int *)calloc(n*n,sizeof(int));
@@ -55,18 +55,21 @@ int main(int argc, char *argv[]) {
     }
     else {
       my_C = (int *)calloc(n*n,sizeof(int));
+      my_B = (int *)calloc((n/comm_sz)*n,sizeof(int));
     }
 
     for(int i = 0; i < n*n; i++) {
       C[i] = 0;
     }
 
+    cout << " Form: " << form << endl;
+
     if(flag == "I") {
       for(int i = 0; i < n*n; i++) {
-        //cin >> A[i];
+        cin >> A[i];
       }
       for(int i = 0; i < n*n; i++) {
-        //cin >> B[i];
+        cin >> B[i];
       }
     }
     else if(flag == "R") {
@@ -108,22 +111,32 @@ int main(int argc, char *argv[]) {
 
   if(my_rank != 0) {
     n = data[0];
-    B = (int *)calloc(n*n,sizeof(int));
     my_A = (int *)calloc((n/comm_sz)*n,sizeof(int));
     iform = data[1];
-    if(iform != 3) {
+
+    if(iform != 3) { //not form kij
+      B = (int *)calloc(n*n,sizeof(int));
       my_C = (int *)calloc((n/comm_sz)*n,sizeof(int));
     }
-    else {
+    else { //form kij
       my_C = (int *)calloc(n*n,sizeof(int));
+      my_B = (int *)calloc((n/comm_sz)*n,sizeof(int));
     }
   }
 
   //Broadcast and scatter B & A
-  MPI_Bcast(B, n*n, MPI_INT, 0, MPI_COMM_WORLD);
+  if(iform !=3) { //not form kij
+    MPI_Bcast(B, n*n, MPI_INT, 0, MPI_COMM_WORLD);
 
-  MPI_Scatter(A, (n/comm_sz)*n, MPI_INT, my_A, (n/comm_sz)*n,
-      MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Scatter(A, (n/comm_sz)*n, MPI_INT, my_A, (n/comm_sz)*n,
+        MPI_INT, 0, MPI_COMM_WORLD);
+  }
+  else {
+    MPI_Scatter(A, (n/comm_sz)*n, MPI_INT, my_A, (n/comm_sz)*n,
+        MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Scatter(B, (n/comm_sz)*n, MPI_INT, my_B, (n/comm_sz)*n,
+        MPI_INT, 0, MPI_COMM_WORLD);
+  }
 
   //debug printing
   //cout << my_rank <<" n: "<< data[0] <<" form: "<< data[1] << endl;
@@ -150,7 +163,7 @@ int main(int argc, char *argv[]) {
         MPI_INT, 0, MPI_COMM_WORLD);
   }
   else if(iform == 3) {
-    Solvekij(my_A, B, my_C, n, comm_sz);
+    Solvekij(my_A, my_B, my_C, n, comm_sz);
     MPI_Reduce(my_C, C, n*n, MPI_REAL, MPI_SUM, 0, MPI_COMM_WORLD);
   }
 
@@ -176,14 +189,16 @@ int main(int argc, char *argv[]) {
   }
 
   //BARRIER
-  MPI_Barrier(MPI_COMM_WORLD);
 
   //print C
   if(my_rank == 0) {
     //cout << endl;
-    //cout << my_rank <<" C: ";
+    //cout << my_rank <<" C: \n";
     for(int i = 0; i < n*n; i++){
       //cout << C[i] << ' ';
+      if(i%4 == 0) {
+        //cout << endl;
+      }
     }
     //cout << endl;
   }
