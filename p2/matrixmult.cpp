@@ -162,6 +162,14 @@ int main(int argc, char *argv[]) {
 
   //print elapsed time
   if(my_rank == 0) {
+    if(flag == "I") {
+      for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+          cout << C[i][j] << " ";
+        }
+        cout << endl;
+      }
+    }
     cout << " Elapsed time = " << t_elapsed << "in seconds\n\n";
   }
 
