@@ -3,7 +3,7 @@
 #include<float.h>
 #include<math.h>
 
-void init(double*** a, double** b, double** x, int n);
+void init(double*** a, double** b, double** x, double*** M, double** B, int n);
 void set_test(double*** a, double** b, int n);
 void print_mats(double*** a, double** b, int n);
 void pivot(double*** a, double* b, int j, int n);
@@ -20,11 +20,11 @@ int main()
   double** a;
   double *b;
   double *x;
-  double *M;
+  double** M;
   double *B;
   int *table;
 
-  init(&a, &b, &x, n);
+  init(&a, &b, &x, &M, &B, n);
   set_test(&a, &b, n);
   print_mats(&a, &b, n);
   table_init(&table, n);
@@ -70,14 +70,18 @@ void print_mats(double*** a, double** b, int n) {
 }
 
 //Initialize A and B in memory
-void init(double*** a, double** b, double** x, int n) {
+void init(double*** a, double** b, double** x, double*** M, double** B, int n) {
   *a = malloc(n*sizeof(double*));
+  *M = malloc(n*sizeof(double*));
   *b = malloc(n*sizeof(double));
+  *B = malloc(n*sizeof(double));
   *x = malloc(n*sizeof(double));
   for(int i = 0; i < n; i++) {
     (*a)[i] = malloc(n*sizeof(double));
+    (*M)[i] = malloc(n*sizeof(double));
     for(int j = 0; j < n; j++) {
       (*a)[i][j] = i-j;
+      (*M)[i][j] = i-j;
     }
   }
   for(int i = 0; i < n; i++) {
