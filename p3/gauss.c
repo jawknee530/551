@@ -1,9 +1,14 @@
+#define _XOPEN_SOURCE
 #include<stdlib.h>
 #include<stdio.h>
 #include<float.h>
 #include<math.h>
+#include<time.h>
+#include<omp.h>
 
 void init(double*** a, double** b, double** x, double*** M, double** B, int n);
+void fill_mat(double*** a, double**b, double*** M, double** B, int n);
+double solve_iS(double*** M, double** B, double** x, int n);
 void set_test(double*** a, double** b, int n);
 void print_mats(double*** a, double** b, int n);
 void pivot(double*** a, double* b, int j, int n);
@@ -14,36 +19,85 @@ void table_init(int **t, int n);
 void table_fill(int *t, int n);
 void table_print(int *t, int n);
 
-int main()
+int main(int argc, char* argv[])
 {
-  int n = 3;
+  int thread_count;
+  double start, finish;
+  int n = 100;
   double** a;
   double *b;
   double *x;
   double** M;
   double *B;
+  double iS;
   int *table;
+  thread_count = strtol(argv[1], NULL, 10);
+
+# pragma omp parallel num_threads(thread_count)
+#   pragma omp master
+    {
+      printf("%d threads \n", omp_get_num_threads());
+    }
 
   init(&a, &b, &x, &M, &B, n);
-  set_test(&a, &b, n);
-  print_mats(&a, &b, n);
-  table_init(&table, n);
-  table_fill(table, n);
+  fill_mat(&a, &b, &M, &B, n);
+  //set_test(&a, &b, n);
+  //print_mats(&a, &b, n);
+  //table_init(&table, n);
+  //table_fill(table, n);
   //table_print(table, n);
+  
+  start = omp_get_wtime();
 
   for(int j = 0; j < n; j++) {
     pivot(&a, b, j, n);
     gauss(&a, b, j, n);
-    print_mats(&a, &b, n);
+    //print_mats(&a, &b, n);
   }
 
+  finish = omp_get_wtime();
+  //print_mats(&M, &B, n);
+
   back_sub(&a, &b, &x, n);
+
+  iS = solve_iS(&M, &B, &x, n);
+
+  printf("I2-Norm is: %.10f\n", iS);
 
   printf("Solution: \n");
   for(int i = 0; i < n; i++) {
     printf("%.2f ", x[i]);
   }
   printf("\n");
+}
+
+//solve i squared for accuracy
+double solve_iS(double*** M, double** B, double** x, int n) {
+  double* b;
+  double iS = 0;
+  b = calloc(n, sizeof(double));
+  for(int i = 0; i < n; i++) {
+    for(int j = 0; j < n; j++) {
+      b[i] += (*M)[i][j] * (*x)[j];
+    }
+  }
+  
+  for(int i = 0; i < n; i++) {
+    iS += pow((*B)[i] - b[i], 2);
+  }
+
+  return sqrt(iS);
+}
+
+//fill up a, b, M, and B
+void fill_mat(double*** a, double**b, double*** M, double** B, int n) {
+  srand48(time(NULL));
+  for(int i = 0; i < n; i++) {
+    for(int j = 0; j < n; j++) {
+      (*a)[i][j] = (*M)[i][j] = (drand48() * 2000000 - 1000000);
+    }
+    (*b)[i] = (*B)[i] = (drand48() * 2000000 - 1000000);
+  }
 }
 
 //solves back substitution
