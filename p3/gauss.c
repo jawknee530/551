@@ -12,18 +12,16 @@ double solve_iS(double*** M, double** B, double** x, int n);
 void set_test(double*** a, double** b, int n);
 void print_mats(double*** a, double** b, int n);
 void pivot(double*** a, double* b, int j, int n);
-void gauss(double*** a, double* b, int i, int n);
+void gauss(double*** a, double* b, int i, int n, int thread_count);
 void back_sub(double*** a, double** b, double** x, int n);
-void gauss_row(double*** a, double* b, int i, int j, int n, double t, int start);
-void table_init(int **t, int n);
-void table_fill(int *t, int n);
-void table_print(int *t, int n);
+void gauss_row(double*** a, double* b, int i, int j, int n, double t, int start
+    , int thread_count);
 
 int main(int argc, char* argv[])
 {
   int thread_count;
   double start, finish;
-  int n = 100;
+  int n = 1000;
   double** a;
   double *b;
   double *x;
@@ -36,37 +34,34 @@ int main(int argc, char* argv[])
 # pragma omp parallel num_threads(thread_count)
 #   pragma omp master
     {
-      printf("%d threads \n", omp_get_num_threads());
+      printf("\n %d threads \n\n", omp_get_num_threads());
     }
 
   init(&a, &b, &x, &M, &B, n);
   fill_mat(&a, &b, &M, &B, n);
   //set_test(&a, &b, n);
-  //print_mats(&a, &b, n);
-  //table_init(&table, n);
-  //table_fill(table, n);
-  //table_print(table, n);
   
   start = omp_get_wtime();
 
   for(int j = 0; j < n; j++) {
     pivot(&a, b, j, n);
-    gauss(&a, b, j, n);
-    //print_mats(&a, &b, n);
+    gauss(&a, b, j, n, thread_count);
   }
 
-  finish = omp_get_wtime();
   //print_mats(&M, &B, n);
 
   back_sub(&a, &b, &x, n);
 
+  finish = omp_get_wtime();
+
   iS = solve_iS(&M, &B, &x, n);
 
-  printf("I2-Norm is: %.10f\n", iS);
+  printf(" I2-Norm is: %.10f\n\n", iS);
+  printf(" Elapsed time = %.3f seconds\n", finish-start);
 
-  printf("Solution: \n");
+  //printf("Solution: \n");
   for(int i = 0; i < n; i++) {
-    printf("%.2f ", x[i]);
+    //printf("%.2f ", x[i]);
   }
   printf("\n");
 }
@@ -189,17 +184,22 @@ void pivot(double*** a, double* b, int j, int n) {
   }
 }
 
-void gauss(double*** a, double* b, int i, int n) {
+void gauss(double*** a, double* b, int i, int n, int thread_count) {
   double t;
   int start = i;
-  for(int k = i+1; k < n; k++) {
+  int k;
+# pragma omp parallel for num_threads(thread_count) \
+  default(none) shared(a, b, t, i, n, start, thread_count) \
+  private(k)
+  for(k = i+1; k < n; k++) {
     t = ((*a)[k][i]) / ((*a)[i][i]);
-    gauss_row(a, b, k, i, n, t, start);
+    gauss_row(a, b, k, i, n, t, start, thread_count);
   }
 }
 
-void gauss_row(double*** a, double* b, int i, int j, int n, double t, int start) {
-  for(j; j < n; j++) {
+void gauss_row(double*** a, double* b, int i, int j, int n, double t, int start
+    , int thread_count) {
+  for(j=j; j < n; j++) {
     (*a)[i][j] = (*a)[i][j] - ((*a)[start][j])*t;    
   }
     (b)[i] = (b)[i] - (b)[start]*t;
@@ -209,19 +209,3 @@ void gauss_row(double*** a, double* b, int i, int j, int n, double t, int start)
  * TESTING FUNCTIONS
  * */
 
-void table_init(int **t, int n) {
-  *t = malloc(n*sizeof(int));
-}
-
-void table_fill(int *t, int n) {
-  for(int i = 0; i < n; i++) {
-    t[i] = i;
-  }
-}
-
-void table_print(int *t, int n) {
-  for(int i = 0; i < n; i++) {
-    printf("%d ", t[i]);
-  }
-  printf("\n");
-}
