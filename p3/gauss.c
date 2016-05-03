@@ -81,14 +81,15 @@ int main(int argc, char* argv[])
  * Initialize the memory for matrixes a and M. arrays x, b, and B 
  */
 void init(double*** a, double** b, double** x, double*** M, double** B, int n) {
-  *a = malloc(n*sizeof(double*));
-  *M = malloc(n*sizeof(double*));
-  *b = malloc(n*sizeof(double));
-  *B = malloc(n*sizeof(double));
-  *x = malloc(n*sizeof(double));
+  *a = calloc(n,sizeof(double*));
+  *M = calloc(n,sizeof(double*));
+  *b = calloc(n,sizeof(double));
+  *B = calloc(n,sizeof(double));
+  *x = calloc(n,sizeof(double));
+  //b = calloc(n, sizeof(double));
   for(int i = 0; i < n; i++) {
-    (*a)[i] = malloc(n*sizeof(double));
-    (*M)[i] = malloc(n*sizeof(double));
+    (*a)[i] = calloc(n,sizeof(double));
+    (*M)[i] = calloc(n,sizeof(double));
     for(int j = 0; j < n; j++) {
       (*a)[i][j] = i-j;
       (*M)[i][j] = i-j;
